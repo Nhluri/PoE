@@ -1,29 +1,34 @@
-﻿using System.Windows;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace RecipeAppWPF
 {
     public partial class EditRecipePage : Page
     {
-        public Recipe CurrentRecipe { get; set; }
+        private Recipe recipe;
 
         public EditRecipePage(Recipe recipe)
         {
             InitializeComponent();
-            CurrentRecipe = recipe;
-            DataContext = CurrentRecipe;
+            this.recipe = recipe;
+            DataContext = this.recipe;
         }
 
         private void Save_Click(object sender, RoutedEventArgs e)
         {
-            // Save the changes (this could involve saving to a database or updating the main view)
-            // For now, we simply navigate back
+            // Save changes made in EditRecipePage
+
+            // Notify ingredients collection changed
+            recipe.OnPropertyChanged(nameof(recipe.Ingredients));
+            recipe.OnPropertyChanged(nameof(recipe.TotalCalories));
+
+            // Navigate back to RecipeDetailsPage
             NavigationService.GoBack();
         }
 
         private void Cancel_Click(object sender, RoutedEventArgs e)
         {
-            // Discard changes (navigate back without saving)
+            // Cancel editing and navigate back without saving changes
             NavigationService.GoBack();
         }
     }
