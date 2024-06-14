@@ -1,0 +1,87 @@
+﻿<Page x:Class="RecipeAppWPF.HomePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Title="Home Page">
+    <Page.Resources>
+        <!-- Define gradient background -->
+        <LinearGradientBrush x:Key="PageBackgroundBrush" StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="#FFFAF0E6" Offset="0"/>
+            <GradientStop Color="#FFDEB887" Offset="1"/>
+        </LinearGradientBrush>
+
+        <!-- Define button style -->
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="#FF8B4513"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Padding" Value="10,5"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect Color="Black" BlurRadius="10"/>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                CornerRadius="10"
+                                BorderBrush="#FF8B4513"
+                                BorderThickness="1">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#FFD2691E"/>
+                                <Setter Property="Effect">
+                                    <Setter.Value>
+                                        <DropShadowEffect Color="Black" BlurRadius="15"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
+
+    <Grid Background="{StaticResource PageBackgroundBrush}">
+        <!-- Grid with two columns for side bar and main content -->
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Side navigation bar -->
+        <StackPanel Grid.Column="0" Background="#FF8B4513" VerticalAlignment="Stretch">
+            <TextBlock Text="Recipe App" FontSize="36" FontWeight="Bold" Foreground="White" HorizontalAlignment="Center" Margin="20"/>
+            <Button Content="Add Recipe" Width="200" Click="AddRecipe_Click" HorizontalAlignment="Center"/>
+            <Button Content="Scale Quantity" Width="200" Click="ScaleQuantity_Click" HorizontalAlignment="Center"/>
+            <Button Content="Delete Recipe" Width="200" Click="DeleteRecipe_Click" HorizontalAlignment="Center"/>
+            <Button Content="Reset Quantities" Width="200" Click="ResetQuantities_Click" HorizontalAlignment="Center"/>
+            <Button Content="View Recipes" Width="200" Click="ViewRecipes_Click" HorizontalAlignment="Center"/>
+            <Button Content="Clear All Data" Width="200" Click="ClearAllData_Click" HorizontalAlignment="Center"/>
+            <Button Content="Exit" Width="200" Click="Exit_Click" HorizontalAlignment="Center"/>
+        </StackPanel>
+
+        <!-- Main content area -->
+        <StackPanel Grid.Column="1" Margin="20">
+            <TextBlock Text="Welcome, Chef!" FontSize="36" FontWeight="Bold" Foreground="#FF8B4513" HorizontalAlignment="Center" Margin="20"/>
+
+            <!-- Image added here -->
+            <Image Source="/master-chef-logo-vector.jpg"  Width="200" Height="200" HorizontalAlignment="Center" Margin="10"/>
+            
+
+            <TextBlock Text="Recent Activity" FontSize="20" Foreground="#FF8B4513" Margin="0,20,0,10"/>
+            <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="0,0,0,20">
+                <TextBlock x:Name="RecentActivityTextBlock" TextWrapping="Wrap" Background="#FFFAF0E6" Padding="10"/>
+            </ScrollViewer>
+            <Frame x:Name="ContentFrame" Margin="20" />
+        </StackPanel>
+    </Grid>
+</Page>
+

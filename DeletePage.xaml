@@ -1,0 +1,64 @@
+﻿<Page x:Class="RecipeAppWPF.DeletePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Title="DeletePage">
+    <Page.Resources>
+        <!-- Define gradient background -->
+        <LinearGradientBrush x:Key="PageBackgroundBrush" StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="#FFFAF0E6" Offset="0"/>
+            <GradientStop Color="#FFDEB887" Offset="1"/>
+        </LinearGradientBrush>
+
+        <!-- Define button style -->
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="#FF8B4513"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Padding" Value="10,5"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect Color="Black" BlurRadius="10"/>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                CornerRadius="10"
+                                BorderBrush="#FF8B4513"
+                                BorderThickness="1">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#FFD2691E"/>
+                                <Setter Property="Effect">
+                                    <Setter.Value>
+                                        <DropShadowEffect Color="Black" BlurRadius="15"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
+
+    <Grid Background="{StaticResource PageBackgroundBrush}">
+        <Border Background="#CCFFFFFF" Padding="20" CornerRadius="10" BorderBrush="#FF8B4513" BorderThickness="2" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <StackPanel>
+                <TextBlock x:Name="PromptText" FontSize="16" Foreground="#FF8B4513" Margin="0,0,0,10"/>
+                <TextBox x:Name="InputTextBox" FontSize="14" Margin="0,0,0,10"/>
+                <Button Content="OK" Click="OKButton_Click" HorizontalAlignment="Right" Width="75" Margin="0,0,0,5"/>
+                <Button Content="Back" Click="BackButton_Click" HorizontalAlignment="Right" Width="75"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Page>
+
+
