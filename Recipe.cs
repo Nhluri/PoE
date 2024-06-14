@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -16,8 +16,11 @@ namespace RecipeAppWPF
             get => name;
             set
             {
-                name = value;
-                OnPropertyChanged();
+                if (name != value)
+                {
+                    name = value;
+                    OnPropertyChanged();
+                }
             }
         }
 
@@ -26,8 +29,12 @@ namespace RecipeAppWPF
             get => ingredients;
             set
             {
-                ingredients = value;
-                OnPropertyChanged();
+                if (ingredients != value)
+                {
+                    ingredients = value;
+                    OnPropertyChanged();
+                    OnPropertyChanged(nameof(TotalCalories));
+                }
             }
         }
 
@@ -36,8 +43,11 @@ namespace RecipeAppWPF
             get => steps;
             set
             {
-                steps = value;
-                OnPropertyChanged();
+                if (steps != value)
+                {
+                    steps = value;
+                    OnPropertyChanged();
+                }
             }
         }
 
@@ -47,21 +57,20 @@ namespace RecipeAppWPF
             Steps = new List<Step>();
         }
 
-        public int CalculateTotalCalories()
-        {
-            return Ingredients.Sum(ingredient => ingredient.Calories);
-        }
+        public int TotalCalories => Ingredients.Sum(ingredient => ingredient.Calories);
 
         public void AddIngredient(Ingredient ingredient)
         {
             Ingredients.Add(ingredient);
             OnPropertyChanged(nameof(Ingredients));
+            OnPropertyChanged(nameof(TotalCalories));
         }
 
         public void RemoveIngredient(Ingredient ingredient)
         {
             Ingredients.Remove(ingredient);
             OnPropertyChanged(nameof(Ingredients));
+            OnPropertyChanged(nameof(TotalCalories));
         }
 
         public void AddStep(string description)
@@ -77,7 +86,7 @@ namespace RecipeAppWPF
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        protected internal void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
@@ -93,8 +102,11 @@ namespace RecipeAppWPF
             get => description;
             set
             {
-                description = value;
-                OnPropertyChanged();
+                if (description != value)
+                {
+                    description = value;
+                    OnPropertyChanged();
+                }
             }
         }
 
@@ -103,13 +115,16 @@ namespace RecipeAppWPF
             get => isCompleted;
             set
             {
-                isCompleted = value;
-                OnPropertyChanged();
+                if (isCompleted != value)
+                {
+                    isCompleted = value;
+                    OnPropertyChanged();
+                }
             }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
