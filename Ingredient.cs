@@ -1,70 +1,84 @@
-﻿using System.ComponentModel;
+
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace RecipeAppWPF
+public class Ingredient : INotifyPropertyChanged
 {
-    public class Ingredient : INotifyPropertyChanged
-    {
-        private string name;
-        private double quantity;
-        private string unit;
-        private int calories;
-        private string foodGroup;
+    private string name;
+    private double quantity;
+    private string unit;
+    private int calories;
+    private string foodGroup;
 
-        public string Name
+    public string Name
+    {
+        get => name;
+        set
         {
-            get => name;
-            set
+            if (name != value)
             {
                 name = value;
                 OnPropertyChanged();
             }
         }
+    }
 
-        public double Quantity
+    public double Quantity
+    {
+        get => quantity;
+        set
         {
-            get => quantity;
-            set
+            if (quantity != value)
             {
                 quantity = value;
                 OnPropertyChanged();
             }
         }
+    }
 
-        public string Unit
+    public string Unit
+    {
+        get => unit;
+        set
         {
-            get => unit;
-            set
+            if (unit != value)
             {
                 unit = value;
                 OnPropertyChanged();
             }
         }
+    }
 
-        public int Calories
+    public int Calories
+    {
+        get => calories;
+        set
         {
-            get => calories;
-            set
+            if (calories != value)
             {
                 calories = value;
                 OnPropertyChanged();
+                OnPropertyChanged(nameof(Calories));
             }
         }
+    }
 
-        public string FoodGroup
+    public string FoodGroup
+    {
+        get => foodGroup;
+        set
         {
-            get => foodGroup;
-            set
+            if (foodGroup != value)
             {
                 foodGroup = value;
                 OnPropertyChanged();
             }
         }
+    }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+    public event PropertyChangedEventHandler PropertyChanged;
+    protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 }
